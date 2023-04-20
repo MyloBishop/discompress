@@ -28,7 +28,7 @@ If you encounter any issues while running the script, try the following:
 2. Make sure the input file has a valid extension (see "Limitations" section).
 3. Make sure the input file is not already compressed to a size smaller than the target size or bitrate.
 4. Make sure the output file does not already exist in the output directory.
-5. If you still encounter issues, please contact the script author.
+5. If you still encounter issues, please make a new issue.
 
 ## License
 
