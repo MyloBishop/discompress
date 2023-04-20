@@ -8,7 +8,7 @@ The script requires [FFmpeg](https://ffmpeg.org/download.html) to be installed o
 
 ## Usage
 
-To compress a video or audio file, simply drag and drop the file onto the batch script or use the terminal with the command `compress.bat <input_file>`.
+To compress a video or audio file, simply drag and drop the file onto the batch script or use the terminal with the command `discompress.bat <input_file>`.
 The output file is saved as a .mp4 (if video) or a .mp3 (if audio) in the inputs file directory with the name 25MB_<input_filename>.
 
 Path to batchfile can also be added to the registry to be able to compress in the windows right-click menu.
