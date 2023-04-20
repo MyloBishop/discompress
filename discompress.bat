@@ -79,7 +79,7 @@ REM Function for processing video file
         goto :eof
     )
 
-    REM Exit if target video bitrate is under 125kbps
+    REM Exit if target audio bitrate is under 32kbps
     if %audio_bitrate% LSS 32 (
         echo Target audio bitrate is under 32.
         echo Unable to compress.
@@ -109,7 +109,7 @@ REM Function for processing audio file
     echo Audio duration: %duration%s
     echo Bitrate target: %bitrate%k
 
-    REM Exit if target bitrate is under 8kbps
+    REM Exit if target bitrate is under 32kbps
     if %bitrate% LSS 32 (
     echo Target bitrate is under 32kbps.
     echo Unable to compress.
