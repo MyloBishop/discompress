@@ -63,8 +63,6 @@ REM Function for processing video file
     REM Calculate video and audio bitrates based on video properties
     for /f "delims=" %%v in ('ffprobe -v error -select_streams v:0 -show_entries stream^=bit_rate -of default^=noprint_wrappers^=1:nokey^=1 "%input_file%"') do set "video_bitrate=%%v"
     for /f "delims=" %%a in ('ffprobe -v error -select_streams a:0 -show_entries stream^=bit_rate -of default^=noprint_wrappers^=1:nokey^=1 "%input_file%"') do set "audio_bitrate=%%a"
-    echo %video_bitrate%
-    echo %audio_bitrate%
 
     REM Allocate bitrate based on video properties
     set /a "video_bitrate=bitrate * video_bitrate / (video_bitrate + audio_bitrate)"
