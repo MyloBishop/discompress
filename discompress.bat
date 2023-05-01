@@ -108,16 +108,16 @@ REM Function for processing audio file
 
     REM Exit if target bitrate is under 32kbps
     if %bitrate% LSS 32 (
-    echo Target bitrate is under 32kbps.
-    echo Unable to compress.
-    pause
-    exit /b 1
+        echo Target bitrate is under 32kbps.
+        echo Unable to compress.
+        pause
+        goto :eof
     )
 
     REM Compress audio file using FFmpeg
     pushd %input_directory%
     echo Compressing audio file using FFmpeg...
-    ffmpeg -hide_banner -loglevel warning -stats -i "%input_file%" -c:a libmp3lame -b:a %bitrate%k -bufsize %bitrate%k -minrate 100 -maxrate %bitrate%k "25MB_%input_file_name%.mp3"
+    ffmpeg -hide_banner -loglevel warning -stats -i "%input_file%" -preset slow -c:a libmp3lame -b:a %bitrate%k -bufsize %bitrate%k -minrate 100 -maxrate %bitrate%k "25MB_%input_file_name%.mp3"
     popd
 
     goto :eof
