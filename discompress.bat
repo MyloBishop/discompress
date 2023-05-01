@@ -48,7 +48,7 @@ REM Function for processing video file
     REM Calculate bitrate based on input file duration
     for /f "delims=" %%i in ('ffprobe -v error -show_entries format^=duration -of default^=noprint_wrappers^=1:nokey^=1 "%input_file%"') do set "duration=%%i"
 
-    set /a "bitrate=25 * 8 * 1000 / duration"
+    set /a "bitrate=23 * 8 * 1000 / duration"
     echo Video length: %duration%s
     echo Bitrate target: %bitrate%k
 
@@ -60,16 +60,14 @@ REM Function for processing video file
     goto :eof
     )
 
-    REM Calculate video and audio bitrates based on video properties
-    for /f "delims=" %%v in ('ffprobe -v error -select_streams v:0 -show_entries stream^=bit_rate -of default^=noprint_wrappers^=1:nokey^=1 "%input_file%"') do set "video_bitrate=%%v"
-    for /f "delims=" %%a in ('ffprobe -v error -select_streams a:0 -show_entries stream^=bit_rate -of default^=noprint_wrappers^=1:nokey^=1 "%input_file%"') do set "audio_bitrate=%%a"
-
     REM Allocate bitrate based on video properties
-    set /a "video_bitrate=bitrate * video_bitrate / (video_bitrate + audio_bitrate)"
-    set /a "audio_bitrate=bitrate - video_bitrate"
+    set /a "video_bitrate=bitrate * 90 / 100"
+    set /a "audio_bitrate=bitrate * 10 / 100"
 
-    echo Video bitrate: %video_bitrate%k
-    echo Audio bitrate: %audio_bitrate%k
+    echo Video Bitrate: %video_bitrate%
+    echo Audio Bitrate: %audio_bitrate%
+
+
 
     REM Exit if target video bitrate is under 125kbps
     if %video_bitrate% LSS 125 (
@@ -92,7 +90,6 @@ REM Function for processing video file
     ffmpeg -hide_banner -loglevel warning -stats -threads 0 -hwaccel auto -i "%input_file%" -preset slow -c:v h264_nvenc -b:v %video_bitrate%k -c:a aac -b:a %audio_bitrate%k -bufsize %bitrate%k -minrate 100 -maxrate %bitrate%k "25MB_%input_file_name%.mp4"
     popd
 
-    pause
     goto :eof
 )
 
